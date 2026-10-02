@@ -11,7 +11,10 @@ for(const cmd of ['ffmpeg','ffprobe'])check(cmd,spawnSync(cmd,['-version'],{stdi
 const provider=value('TRANSCRIPTION_PROVIDER')||'fireworks';
 check('Transcription provider',['fireworks','groq'].includes(provider),'Set TRANSCRIPTION_PROVIDER to fireworks or groq.');
 check('Apify key',Boolean(value('APIFY_TOKEN')||value('APIFY_API_TOKEN')),'Add APIFY_TOKEN to .env.');
-check('Jev key',Boolean(value('TYPESAFE_API_KEY')||value('JEV_API_KEY')),'Add TYPESAFE_API_KEY to .env.');
+const jev=value('JEV_PROVIDER')||'typesafe';
+check('Jev provider',['typesafe','vercel'].includes(jev),'Set JEV_PROVIDER to typesafe or vercel.');
+if(jev==='vercel')check('Vercel AI Gateway key',Boolean(value('AI_GATEWAY_API_KEY')),'Add AI_GATEWAY_API_KEY to .env (vercel.com > AI Gateway > API Keys).');
+else check('Jev key',Boolean(value('TYPESAFE_API_KEY')||value('JEV_API_KEY')),'Add TYPESAFE_API_KEY to .env.');
 if(['fireworks','groq'].includes(provider))check(`${provider} key`,Boolean(value(provider==='groq'?'GROQ_API_KEY':'FIREWORKS_API_KEY')),`Add your ${provider} key to .env.`);
 console.log('Keys are checked for presence only. No key values are printed and no paid requests are made.');
 console.log(failures?'Fix the items above for live analysis. The synthetic demo still works without keys.':'Ready for a pilot. Start the app and verify Connections.');

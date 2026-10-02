@@ -57,6 +57,10 @@ Jev sees the speech before performance metrics are joined. Views and plays remai
 | Transcribe, alternative | [Groq](https://console.groq.com/docs/speech-to-text) | `TRANSCRIPTION_PROVIDER=groq`, `GROQ_API_KEY` |
 | Classify scripts | [TypeSafe Jev](https://docs.typesafe.ai/api) | `TYPESAFE_API_KEY` |
 
+### Jev through Vercel AI Gateway
+
+Set `JEV_PROVIDER=vercel` and `AI_GATEWAY_API_KEY` in `.env` to reach Jev through [AI Gateway TypeSafe-compatible API](https://vercel.com/docs/ai-gateway/sdks-and-apis/typesafe) instead of a TypeSafe key. Requests go to `https://ai-gateway.vercel.sh/typesafe/v1/systemone` with model `typesafe-ai/jev` and are billed to your Vercel AI Gateway credit. The default, `JEV_PROVIDER=typesafe`, keeps the direct TypeSafe endpoint.
+
 Use either transcription provider. There is no automatic switch that could charge a different provider. Restart the server after changing `.env`.
 
 ## Costs and coverage
